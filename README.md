@@ -15,10 +15,13 @@ sbt run
 And then go to http://localhost:9000 to see the running web application.
 
 Example of curl calls are:
-
+```
 curl -X GET -H 'Content-Type: application/json' -i http://localhost:9000/statistics --data '{"sales_amount":"2"}'
+```
 and
+```
 curl -X POST -H 'Content-Type: application/json' -i http://localhost:9000/add --data '{"sales_amount":"2"}'
+```
 ## Controllers
 
 There are several demonstration files available in this template.
