@@ -8,7 +8,7 @@ GET         /                    controllers.HomeController.index
 GET         /statistics          controllers.CountController.getOrderStatistics
 # An example controller showing how to write asynchronous code
 GET         /message             controllers.AsyncController.message
-POST        /add                 controllers.CountController.addOrder()
+POST        /add                 controllers.CountController.addOrder
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)

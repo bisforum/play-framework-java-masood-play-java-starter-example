@@ -18,7 +18,12 @@ import java.util.Date;
 @Singleton
 public class InMemoryOrderService implements Order {
     //    private final AtomicInteger atomicCounter = new AtomicInteger();
+//    private Configuration configuration;
 
+//    @Inject
+//    public InMemoryOrderService(Configuration configuration) {
+//        this.configuration = configuration;
+//    }
 
     @Override
     public void addOrder(Transaction transaction) {
@@ -46,9 +51,9 @@ public class InMemoryOrderService implements Order {
     private void dequeueOldOrders(Date requestTime) {
 
         boolean olderThanOneMinute = true;
-
+//        int timeWindow = configuration.getString("timeWindow");
         while (olderThanOneMinute && !orderQueue.isEmpty()) {
-            DateTime timeWindowStart = new DateTime(requestTime).minusMinutes(1);
+            DateTime timeWindowStart = new DateTime(requestTime).minusSeconds(60);
             DateTime transactionTime = new DateTime(orderQueue.peek().timeStamp);
 
             if (transactionTime.isBefore(timeWindowStart) && !orderQueue.isEmpty()) {

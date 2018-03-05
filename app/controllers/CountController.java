@@ -49,7 +49,7 @@ public class CountController extends Controller {
         int saleAmount = Integer.valueOf(json.get("sales_amount").asText());
         Transaction transaction = new Transaction(new Date(), saleAmount);
         orderService.addOrder(transaction);
-        return ok();
+        return status(202, "Accepted");
 //        return ok(Integer.toString(orderService.getStatistics(new Date())));
     }
 
