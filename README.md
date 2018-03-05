@@ -39,7 +39,7 @@ There are several demonstration files available in this template.
 
 - Counter.java:
 
-  An example of a component that contains state, in this case a simple counter.
+  An example of a component that contains state, in this case a simple order.
 
 - ApplicationTimer.java:
 

@@ -28,7 +28,7 @@ public class UnitTest {
     @Test
     public void testCount() {
         final CountController controller = new CountController(() -> 49);
-        Result result = controller.count();
+        Result result = controller.getOrderStatistics();
         assertThat(contentAsString(result)).isEqualTo("49");
     }
 

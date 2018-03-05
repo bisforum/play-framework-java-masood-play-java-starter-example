@@ -2,8 +2,8 @@ import com.google.inject.AbstractModule;
 import java.time.Clock;
 
 import services.ApplicationTimer;
-import services.AtomicCounter;
-import services.Counter;
+import services.InMemoryOrderService;
+import services.Order;
 
 /**
  * This class is a Guice module that tells Guice how to bind several
@@ -24,8 +24,8 @@ public class Module extends AbstractModule {
         // Ask Guice to create an instance of ApplicationTimer when the
         // application starts.
         bind(ApplicationTimer.class).asEagerSingleton();
-        // Set AtomicCounter as the implementation for Counter.
-        bind(Counter.class).to(AtomicCounter.class);
+        // Set InMemoryOrderService as the implementation for Order.
+        bind(Order.class).to(InMemoryOrderService.class);
     }
 
 }

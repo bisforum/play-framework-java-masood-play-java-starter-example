@@ -62,7 +62,7 @@ GET     /               controllers.HomeController.index</code></pre>
             <p>
                 The first line of the template defines the function signature. Here it just takes a single <code>String</code> parameter.
                 Then this template calls another function defined in <code>app/views/main.scala.html</code> which displays the HTML layout, and another
-                function that displays this welcome message. You can freely add any HTML fragment mixed with Scala code in this file.
+                function that displays this welcome message. You can freely addOrder any HTML fragment mixed with Scala code in this file.
             </p>
 
             <blockquote>
@@ -88,11 +88,11 @@ GET     /               controllers.HomeController.index</code></pre>
             <h2>Count Controller</h2>
 
             <p>
-                Both the HomeController and AsyncController are very simple, and typically controllers present the results of the interaction of several services.  As an example, see the <code>CountController</code>, which shows how to inject a component into a controller and use the component when handling requests.  The count controller increments every time you click on it, so keep clicking to see the numbers go up.
+                Both the HomeController and AsyncController are very simple, and typically controllers present the results of the interaction of several services.  As an example, see the <code>CountController</code>, which shows how to inject a component into a controller and use the component when handling requests.  The getOrderStatistics controller increments every time you click on it, so keep clicking to see the numbers go up.
             </p>
 
             <p>
-                <a href="@routes.CountController.count">Click here for the CountController action!</a>
+                <a href="@routes.CountController.addOrder()">Click here for the CountController action!</a>
             </p>
 
             <p>
