@@ -16,7 +16,7 @@ And then go to http://localhost:9000 to see the running web application.
 
 Example of curl calls are:
 ```
-curl -X GET -H 'Content-Type: application/json' -i http://localhost:9000/statistics --data '{"sales_amount":"2"}'
+curl -X GET -H 'Content-Type: application/json' -i http://localhost:9000/statistics
 ```
 and
 ```
