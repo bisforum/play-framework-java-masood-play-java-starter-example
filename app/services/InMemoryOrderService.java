@@ -1,9 +1,13 @@
 package services;
 
+import com.google.inject.Module;
 import org.joda.time.DateTime;
 
 import javax.inject.*;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+
 
 /**
  * This class is a concrete implementation of the {@link Order} trait.
@@ -25,45 +29,56 @@ public class InMemoryOrderService implements Order {
 //        this.configuration = configuration;
 //    }
 
-    @Override
-    public void addOrder(Transaction transaction) {
-        dequeueOldOrders(transaction.timeStamp);
-        orderQueue.add(transaction);
-    }
+    private int sum = 0;
+    private int average = 0;
 
     @Override
-    public Statistics getStatistics(Date requestTime) {
-        int average, sum = 0;
-        dequeueOldOrders(requestTime);
-        if (!orderQueue.isEmpty()) {
-            for (Transaction transaction : orderQueue) {
-                System.out.println(transaction.amount);
-                sum = transaction.amount + sum;
-            }
+    public CompletionStage<Void> addOrder(Transaction transaction) {
+
+        return dequeueOldOrders(transaction.timeStamp).thenAccept(updatedQueue ->
+        {
+            orderQueue.add(transaction);
+            sum = sum + transaction.amount;
             average = sum / orderQueue.size();
-            return new Statistics(sum, average);
-        } else {
-            return new Statistics(0, 0);
+        });
 
-        }
+//        return CompletableFuture.runAsync(() -> {
+//            dequeueOldOrders(transaction.timeStamp);
+////            return null;
+//        }).thenAccept(any -> {
+//            orderQueue.add(transaction);
+//            sum = sum + transaction.amount;
+//            average = sum / orderQueue.size();
+//        });
     }
 
-    private void dequeueOldOrders(Date requestTime) {
+    @Override
+    public CompletionStage<Statistics> getStatistics(Date requestTime) {
+        return dequeueOldOrders(requestTime).thenApply(updatedQueue -> new Statistics(sum, average));
+    }
 
-        boolean olderThanOneMinute = true;
-//        int timeWindow = configuration.getString("timeWindow");
-        while (olderThanOneMinute && !orderQueue.isEmpty()) {
-            DateTime timeWindowStart = new DateTime(requestTime).minusSeconds(60);
-            DateTime transactionTime = new DateTime(orderQueue.peek().timeStamp);
+    private CompletableFuture<Void> dequeueOldOrders(Date requestTime) {
 
-            if (transactionTime.isBefore(timeWindowStart) && !orderQueue.isEmpty()) {
-                orderQueue.remove();
-            } else {
-                System.out.println("Order size is: " + orderQueue.size());
-                System.out.println("Order top is: " + orderQueue.peek().timeStamp);
-                olderThanOneMinute = false;
+        return CompletableFuture.runAsync(() -> {
+            boolean olderThanOneMinute = true;
+            while (olderThanOneMinute && !orderQueue.isEmpty()) {
+                DateTime timeWindowStart = new DateTime(requestTime).minusSeconds(60);
+                DateTime transactionTime = new DateTime(orderQueue.peek().timeStamp);
+
+                if (transactionTime.isBefore(timeWindowStart) && !orderQueue.isEmpty()) {
+                    int headAmount = orderQueue.peek().amount;
+                    sum = sum - headAmount;
+                    System.out.println("Sum is : " + sum);
+                    System.out.println("Avg is : " + average);
+                    average = sum / orderQueue.size();
+                    orderQueue.remove();
+                } else {
+                    System.out.println("Order size is: " + orderQueue.size());
+                    System.out.println("Order top is: " + orderQueue.peek().timeStamp);
+                    olderThanOneMinute = false;
+                }
             }
-        }
+        });
     }
 
 }

@@ -24,6 +24,7 @@ public class CountController extends Controller {
 
     private final Order orderService;
 
+
     @Inject
     public CountController(Order counter) {
         this.orderService = counter;
@@ -35,15 +36,15 @@ public class CountController extends Controller {
      * <code>GET</code> requests with a path of <code>/getOrderStatistics</code>
      * requests by an entry in the <code>routes</code> config file.
      */
-    public Result getOrderStatistics() {
-        Statistics stat = orderService.getStatistics(new Date());
-        ObjectNode result = Json.newObject();
-        result.put("total_sales_amount", stat.getTotalSalesAmount());
-        result.put("average_amount_per_order:", stat.getAverageAmountPerOrder());
-        return ok(result);
-    }
+//    public Result getOrderStatistics() {
+//        Statistics stat = orderService.getStatistics(new Date());
+//        ObjectNode result = Json.newObject();
+//        result.put("total_sales_amount", stat.getTotalSalesAmount());
+//        result.put("average_amount_per_order:", stat.getAverageAmountPerOrder());
+//        return ok(result);
+//    }
 
-    public Result addOrder() {
+    public Result addOrder2() {
 //        Transaction t = new Transaction(new Date(), 1);
         JsonNode json = request().body().asJson();
         int saleAmount = Integer.valueOf(json.get("sales_amount").asText());

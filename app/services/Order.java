@@ -1,8 +1,11 @@
 package services;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.CompletionStage;
 
 /**
  * This interface demonstrates how to create a component that is injected
@@ -16,6 +19,8 @@ public interface Order {
 
 
     Queue<Transaction> orderQueue = new LinkedList<>();
-    void addOrder(Transaction date);
-    Statistics getStatistics(Date requestTime);
+
+    CompletionStage<Void> addOrder(Transaction date);
+
+    CompletionStage<Statistics> getStatistics(Date requestTime);
 }
