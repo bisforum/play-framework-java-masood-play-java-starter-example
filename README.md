@@ -16,11 +16,19 @@ And then go to http://localhost:9000 to see the running web application.
 
 Example of curl calls are:
 ```
-curl -X GET -H 'Content-Type: application/json' -i http://localhost:9000/statistics --data '{"sales_amount":"2"}'
+curl -X GET -H 'Content-Type: application/json' -i http://localhost:9000/statistics
 ```
 and
 ```
 curl -X POST -H 'Content-Type: application/json' -i http://localhost:9000/add --data '{"sales_amount":"2"}'
+```
+
+Example of Load Test with Apache Benchmark
+```
+ab -p post_loc.txt -T application/json -c 10 -n 200 http://localhost:9000/add
+```
+```
+ab -T application/json -c 10 -n 200 http://localhost:9000/statistics
 ```
 ## Controllers
 
