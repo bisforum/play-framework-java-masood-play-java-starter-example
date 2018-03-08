@@ -67,3 +67,9 @@ There are several demonstration files available in this template.
 - ExampleFilter.java
 
   A simple filter that adds a header to every response.
+
+
+  ## To Do:
+  - Get timeWindow from Configuration
+  - Dequeue the queue by a job so it won't get long or use other queue like circular queue
+  - There is no logging for debug purpose
