@@ -83,8 +83,8 @@ public class AsyncController extends Controller {
 
 
     public CompletionStage<Result> getOrderStatistics() {
-    final int timeWindow = (int) config.getDuration("statistics.time.window", TimeUnit.SECONDS);
-    System.out.println("TimeWinodw is : ----"+timeWindow);
+//    final int timeWindow = (int) config.getDuration("statistics.time.window", TimeUnit.SECONDS);
+//    System.out.println("TimeWinodw is : ----"+timeWindow);
 
         return orderService.getStatistics(new Date()).thenApply(stat -> {
             ObjectNode result = Json.newObject();
