@@ -16,15 +16,8 @@ public class Statistics {
         return totalSalesAmount;
     }
 
-    public void setTotalSalesAmount(int totalSalesAmount) {
-        this.totalSalesAmount = totalSalesAmount;
-    }
-
     public int getAverageAmountPerOrder() {
         return averageAmountPerOrder;
     }
 
-    public void setAverageAmountPerOrder(int averageAmountPerOrder) {
-        this.averageAmountPerOrder = averageAmountPerOrder;
-    }
 }

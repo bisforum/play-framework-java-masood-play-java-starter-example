@@ -14,16 +14,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 public class InMemoryOrderServiceUT {
 
 
-    private PriorityBlockingQueue<Transaction> orderQueue = new PriorityBlockingQueue<>(100000, Transaction::compareTo);
+    private PriorityBlockingQueue<Transaction> orderQueue = new PriorityBlockingQueue<>(100, Transaction::compareTo);
 
     private DateTime currentTime = new DateTime();
 
@@ -66,16 +63,17 @@ public class InMemoryOrderServiceUT {
     }
 
     @Test
-    public void GetStatistics_HalfOfOrdersAreOld_GetHalfAmount() throws ExecutionException, InterruptedException {
+    public void GetStatistics_HalfOfOrdersAreOld_ReduceHalfOfTotal() throws ExecutionException, InterruptedException {
 
         Config config = mock(Config.class);
-        makeHalfExpiredQueue(currentTime);
         InMemoryOrderService service = new InMemoryOrderService(config, orderQueue);
+        makeHalfExpiredQueue(currentTime);
+
 
         CompletionStage<Statistics> futureResult = service.getStatistics(currentTime);
         Statistics result = futureResult.toCompletableFuture().get();
 
-        assertEquals(result.getTotalSalesAmount(), t3Amount + t4Amount);
+        assertEquals(result.getTotalSalesAmount(), -(t3Amount + t4Amount));
 
     }
 

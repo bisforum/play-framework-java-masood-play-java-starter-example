@@ -10,23 +10,15 @@ And then go to http://localhost:9000 to see the running web application.
 
 Example of curl calls are:
 ```
-curl -X GET -H 'Content-Type: application/json' -i http://localhost:9000/statistics
+curl -X GET -i http://localhost:9000/statistics
 ```
 and
 ```
-curl -X POST -H 'Content-Type: application/json' -i http://localhost:9000/add --data '{"sales_amount":"2"}'
+curl -d "sales_amount=2" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:9000/sales -i
 ```
 
-Example of Load Test with Apache Benchmark 
-(install apache benchmark on your machine and run the following command in scripts/performance-test/post_loc.txt)
-```
-ab -p post_loc.txt -T application/json -c 10 -n 200 http://localhost:9000/add
-```
-```
-ab -T application/json -c 10 -n 200 http://localhost:9000/statistics
-```
-
-  ## To Do:
-  - "timeWindow" should be read from configuration files. Therefore tests can use shorter "timeWindow".
-  - Dequeue the queue by a job so it won't get big. Another solution is to use other queue like circular queue.
-  -
+  ## To Do (Due to time limitation I could not complete the following items, but though about them and have solutions):
+  - "timeWindow" should be read from configuration files. That helps testability design.
+  - Queue can get big (unnecessariliy) and full. Currently considering the requirements, it is limited to 300K. A good dequeue policy can be helpful e.g. deque the queue periodically.
+  - Some concurrent test to be added. Also Performance Testing can be done in a separate project.
+  - Better Error naming and codes.

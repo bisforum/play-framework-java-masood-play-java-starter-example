@@ -2,15 +2,12 @@ package services;
 
 import org.joda.time.DateTime;
 
-import java.util.Queue;
-
 import com.typesafe.config.Config;
 import play.Logger;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -26,15 +23,16 @@ public class InMemoryOrderService implements OrderService {
         this.orderQueue = orderQueue;
     }
 
-    AtomicInteger atomicSum = new AtomicInteger(0);
+    private AtomicInteger atomicSum = new AtomicInteger(0);
 
+    //    Todo: Read the timeWindow from config files to make the app and tests more configurable
     //        private final int timeWindow = Integer.parseInt(config.getString("statistics.time.window"));
     private final int timeWindow = 60000;
 
-
     @Override
     public CompletionStage<Void> addOrder(Transaction transaction) {
-        Logger.debug("The following transaction is going to be added to the queue (amount , timestampt): " + transaction.amount + " , " + transaction.timeStamp);
+        Logger.debug("Entering " + this.getClass().getSimpleName() + ".addOrder method with transaction: " + transaction.timeStamp + ", " + transaction.amount);
+        Logger.debug("The following transaction is going to be added to the queue (amount , timestamp): " + transaction.amount + " , " + transaction.timeStamp);
 
         return CompletableFuture.runAsync(() -> {
             orderQueue.add(transaction);
@@ -44,7 +42,7 @@ public class InMemoryOrderService implements OrderService {
 
     @Override
     public CompletionStage<Statistics> getStatistics(DateTime requestTime) {
-        Logger.debug("Entered " + this.getClass().getSimpleName() + ".getStatistics method; remoteAddress=");
+        Logger.debug("Entering " + this.getClass().getSimpleName() + ".getStatistics method with requestTime " + requestTime.toString());
 
         return dequeueOldOrders(requestTime).thenApply(updatedQueue ->
         {

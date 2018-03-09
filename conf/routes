@@ -3,4 +3,4 @@
 # ~~~~
 
 GET         /statistics          controllers.OrderController.getOrderStatistics
-POST        /add                 controllers.OrderController.addOrder()
+POST        /sales                 controllers.OrderController.addOrder()
