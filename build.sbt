@@ -21,4 +21,6 @@ libraryDependencies += "org.mockito" % "mockito-core" % "2.10.0" % "test"
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
 
 javaOptions in Test += "-Dconfig.file=conf/application.test.conf"
+coverageEnabled := true
+
 

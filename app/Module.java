@@ -2,6 +2,10 @@ import com.google.inject.AbstractModule;
 import controllers.OrderController;
 import services.InMemoryOrderService;
 import services.OrderService;
+import services.Transaction;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 
 /**
@@ -20,7 +24,9 @@ public class Module extends AbstractModule {
     public void configure() {
 
         bind(OrderService.class).to(InMemoryOrderService.class);
-        bind(OrderController.class);
+        bind(BlockingQueue.class).toInstance(new PriorityBlockingQueue<Transaction>());
+//    BlockingQueue<Transaction> orderQueue = new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo);
+
 
     }
 

@@ -2,6 +2,7 @@ import org.joda.time.DateTime;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import services.InMemoryOrderService;
@@ -18,8 +19,8 @@ import static services.OrderService.queueCapacity;
 
 public class InMemoryOrderServiceUT {
 
-
-    PriorityBlockingQueue<Transaction> mockedOrderQueue = new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo);
+    //    @Spy
+    PriorityBlockingQueue<Transaction> orderQueue = new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo);
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -28,13 +29,13 @@ public class InMemoryOrderServiceUT {
     @Test
     public void testDequeue() throws ExecutionException, InterruptedException {
 
-        mockedOrderQueue.add(new Transaction(new DateTime(), 3));
+        orderQueue.add(new Transaction(new DateTime(), 3));
 
-        when(OrderService.orderQueue).thenReturn(mockedOrderQueue);
-        InMemoryOrderService service = new InMemoryOrderService();
+//        when(OrderService.orderQueue).thenReturn(mockedOrderQueue);
+        InMemoryOrderService service = new InMemoryOrderService(orderQueue);
         CompletableFuture<Void> futureResult = service.dequeueOldOrders(new DateTime());
         futureResult.get();
-        assertEquals((mockedOrderQueue.size()), 1);
+        assertEquals((orderQueue.size()), 1);
 
 
     }

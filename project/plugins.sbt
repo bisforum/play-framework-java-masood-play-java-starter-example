@@ -7,3 +7,6 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.12")
 // basis using disablePlugins(PlayEnhancer) in your build.sbt
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.2.2")
 
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1")
+
+

@@ -27,6 +27,6 @@ ab -T application/json -c 10 -n 200 http://localhost:9000/statistics
 ```
 
   ## To Do:
-  - Get timeWindow from Configuration
-  - Dequeue the queue by a job so it won't get long or use other queue like circular queue
-  - There is no logging for debug purpose
+  - "timeWindow" should be read from configuration files. Therefore tests can use shorter "timeWindow".
+  - Dequeue the queue by a job so it won't get big. Another solution is to use other queue like circular queue.
+  -
