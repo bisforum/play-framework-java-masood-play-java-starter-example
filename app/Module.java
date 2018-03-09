@@ -1,10 +1,10 @@
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
 import controllers.OrderController;
+import play.Configuration;
 import services.InMemoryOrderService;
 import services.OrderService;
 import services.Transaction;
-
-
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
