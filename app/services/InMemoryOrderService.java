@@ -1,13 +1,16 @@
 package services;
 
 import org.joda.time.DateTime;
+
 import java.util.Queue;
+
 import com.typesafe.config.Config;
 import play.Logger;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -25,7 +28,7 @@ public class InMemoryOrderService implements OrderService {
 
     AtomicInteger atomicSum = new AtomicInteger(0);
 
-    //    private final int timeWindow = (int) config.getDuration("statistics.time.window", TimeUnit.SECONDS);
+    //        private final int timeWindow = Integer.parseInt(config.getString("statistics.time.window"));
     private final int timeWindow = 60000;
 
 

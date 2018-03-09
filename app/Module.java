@@ -24,12 +24,11 @@ public class Module extends AbstractModule {
 
     @Override
     public void configure() {
-        final int queueCapacity = Integer.valueOf(Configuration.root().getString("queue.capacity"));
 
-        bind(new TypeLiteral<BlockingQueue<Transaction>>(){}).toInstance(new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo));
+//        todo: Read the initialCapacity from configuration
+        bind(new TypeLiteral<BlockingQueue<Transaction>>() {
+        }).toInstance(new PriorityBlockingQueue<>(300000, Transaction::compareTo));
         bind(OrderService.class).to(InMemoryOrderService.class);
-        bind(BlockingQueue.class).toInstance(new PriorityBlockingQueue<Transaction>());
-//    BlockingQueue<Transaction> orderQueue = new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo);
 
 
     }
