@@ -13,7 +13,7 @@ import play.mvc.*;
 import java.util.Date;
 import java.util.concurrent.CompletionStage;
 
-import services.Order;
+import services.OrderService;
 import services.Transaction;
 
 
@@ -21,11 +21,11 @@ import services.Transaction;
 public class AsyncController extends Controller {
 
 
-    private final Order orderService;
+    private final OrderService orderService;
 
 
     @Inject
-    public AsyncController(Order order) {
+    public AsyncController(OrderService order) {
 
         this.orderService = order;
 
