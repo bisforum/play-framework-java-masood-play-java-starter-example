@@ -14,11 +14,13 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.when;
+import static services.OrderService.queueCapacity;
 
 public class InMemoryOrderServiceUT {
 
 
-    PriorityBlockingQueue<Transaction> orderQueue;
+    PriorityBlockingQueue<Transaction> mockedOrderQueue = new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo);;
+    ;
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -26,13 +28,13 @@ public class InMemoryOrderServiceUT {
     @Test
     public void testDequeue() throws ExecutionException, InterruptedException {
 
-        orderQueue.add(new Transaction(new DateTime(), 3));
+        mockedOrderQueue.add(new Transaction(new DateTime(), 3));
 
-        when(OrderService.orderQueue).thenReturn(orderQueue);
+        when(OrderService.orderQueue).thenReturn(mockedOrderQueue);
         InMemoryOrderService service = new InMemoryOrderService();
         CompletableFuture<Void> futureResult = service.dequeueOldOrders(new DateTime());
         futureResult.get();
-        assertEquals((orderQueue.size()), 1);
+        assertEquals((mockedOrderQueue.size()), 1);
 
 
     }
