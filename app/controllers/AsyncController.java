@@ -21,15 +21,13 @@ import services.Transaction;
 @Singleton
 public class AsyncController extends Controller {
 
-    private final ActorSystem actorSystem;
-    private final ExecutionContextExecutor exec;
+
     private final Order orderService;
 
 
     @Inject
-    public AsyncController(ActorSystem actorSystem, ExecutionContextExecutor exec, Order order) {
-        this.actorSystem = actorSystem;
-        this.exec = exec;
+    public AsyncController(Order order) {
+
         this.orderService = order;
 
 
