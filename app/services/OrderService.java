@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import java.util.Date;
 import java.util.concurrent.*;
 
-public interface Order {
+public interface OrderService {
 
     final int queueCapacity = Integer.valueOf(Configuration.root().getString("queue.capacity"));
 

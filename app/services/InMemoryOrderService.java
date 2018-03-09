@@ -11,7 +11,7 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class InMemoryOrderService implements Order {
+public class InMemoryOrderService implements OrderService {
 
 
 //    private Config config;

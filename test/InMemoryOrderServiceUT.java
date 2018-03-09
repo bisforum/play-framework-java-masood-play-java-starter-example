@@ -4,7 +4,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import services.InMemoryOrderService;
-import services.Order;
+import services.OrderService;
 import services.Transaction;
 
 import java.util.Date;
@@ -28,7 +28,7 @@ public class InMemoryOrderServiceUT {
 
         orderQueue.add(new Transaction(new Date(), 3));
 
-        when(Order.orderQueue).thenReturn(orderQueue);
+        when(OrderService.orderQueue).thenReturn(orderQueue);
         InMemoryOrderService service = new InMemoryOrderService();
         CompletableFuture<Void> futureResult = service.dequeueOldOrders(new Date());
         futureResult.get();
