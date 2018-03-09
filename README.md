@@ -17,7 +17,8 @@ and
 curl -X POST -H 'Content-Type: application/json' -i http://localhost:9000/add --data '{"sales_amount":"2"}'
 ```
 
-Example of Load Test with Apache Benchmark (make a post_loc.txt file with JSON insude)
+Example of Load Test with Apache Benchmark 
+(install apache benchmark on your machine and run the following command in scripts/performance-test/post_loc.txt)
 ```
 ab -p post_loc.txt -T application/json -c 10 -n 200 http://localhost:9000/add
 ```
