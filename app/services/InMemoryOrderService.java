@@ -1,12 +1,11 @@
 package services;
 
-import com.google.inject.Module;
 import org.joda.time.DateTime;
-import play.Configuration;
+import java.util.Queue;
+import com.typesafe.config.Config;
 import play.Logger;
 
-import java.util.Date;
-import java.util.Optional;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,12 +14,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class InMemoryOrderService implements OrderService {
 
 
-//    private Config config;
-//
-//    @javax.inject.Inject
-//    public InMemoryOrderService(Config config) {
-//        this.config = config;
-//    }
+    private final BlockingQueue<Transaction> orderQueue;
+    private Config config;
+
+    @javax.inject.Inject
+    public InMemoryOrderService(Config config, BlockingQueue<Transaction> orderQueue) {
+        this.config = config;
+        this.orderQueue = orderQueue;
+    }
 
     AtomicInteger atomicSum = new AtomicInteger(0);
 
