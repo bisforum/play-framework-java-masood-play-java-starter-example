@@ -3,7 +3,7 @@ import com.google.inject.AbstractModule;
 
 import controllers.AsyncController;
 import services.InMemoryOrderService;
-import services.Order;
+import services.OrderService;
 
 
 /**
@@ -26,7 +26,7 @@ public class Module extends AbstractModule {
         // application starts.
 //        bind(ApplicationTimer.class).asEagerSingleton();
         // Set InMemoryOrderService as the implementation for Order.
-        bind(Order.class).to(InMemoryOrderService.class);
+        bind(OrderService.class).to(InMemoryOrderService.class);
         bind(AsyncController.class);
 //        bind(InMemoryOrderService.class);
     }
