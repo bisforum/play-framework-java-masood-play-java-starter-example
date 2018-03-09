@@ -50,7 +50,7 @@ public class InMemoryOrderService implements Order {
     }
 
 
-    private CompletableFuture<Void> dequeueOldOrders(Date requestTime) {
+    public CompletableFuture<Void> dequeueOldOrders(Date requestTime) {
 
         return CompletableFuture.runAsync(() -> {
             boolean olderThanOneMinute = true;

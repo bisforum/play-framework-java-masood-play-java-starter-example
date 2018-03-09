@@ -19,7 +19,7 @@ libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
 libraryDependencies += "com.vmlens" % "concurrent-junit" % "1.0.2"
 libraryDependencies += "org.awaitility" % "awaitility-scala" % "3.1.0"
 libraryDependencies += ws
-
+libraryDependencies += "org.mockito" % "mockito-core" % "2.10.0" % "test"
 
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
