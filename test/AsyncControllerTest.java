@@ -1,5 +1,5 @@
 //import com.fasterxml.jackson.databind.JsonNode;
-//import controllers.AsyncController;
+//import controllers.OrderController;
 //import org.junit.Test;
 //import play.libs.Json;
 //import play.mvc.Result;
@@ -21,7 +21,7 @@
 //    public void testAddAndGetAsync() {
 //
 //
-//        final AsyncController controller = new AsyncController(orderService);
+//        final OrderController controller = new OrderController(orderService);
 //
 //        JsonNode json = Json.parse("{\"sales_amount\":\"1\"}");
 //

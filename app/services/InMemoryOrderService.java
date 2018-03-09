@@ -3,6 +3,7 @@ package services;
 import org.joda.time.DateTime;
 import java.util.Queue;
 import com.typesafe.config.Config;
+import play.Logger;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
@@ -30,6 +31,7 @@ public class InMemoryOrderService implements OrderService {
 
     @Override
     public CompletionStage<Void> addOrder(Transaction transaction) {
+        Logger.debug("The following transaction is going to be added to the queue (amount , timestampt): " + transaction.amount + " , " + transaction.timeStamp);
 
         return CompletableFuture.runAsync(() -> {
             orderQueue.add(transaction);
@@ -39,6 +41,8 @@ public class InMemoryOrderService implements OrderService {
 
     @Override
     public CompletionStage<Statistics> getStatistics(DateTime requestTime) {
+        Logger.debug("Entered " + this.getClass().getSimpleName() + ".getStatistics method; remoteAddress=");
+
         return dequeueOldOrders(requestTime).thenApply(updatedQueue ->
         {
             if (orderQueue.isEmpty()) {
@@ -55,13 +59,14 @@ public class InMemoryOrderService implements OrderService {
 
         return CompletableFuture.runAsync(() -> {
             boolean olderThanOneMinute = true;
-
+            Logger.debug("queue size is: " + orderQueue.size());
             while (olderThanOneMinute && !orderQueue.isEmpty()) {
 
                 DateTime timeWindowStart = (requestTime).minusMillis((timeWindow));
                 DateTime transactionTime = (orderQueue.peek().timeStamp);
 
                 if (transactionTime.isBefore(timeWindowStart)) {
+                    Logger.debug("The following transaction is about tho be removed form the queue" + orderQueue.peek());
                     atomicSum.set(atomicSum.get() - orderQueue.poll().amount);
                 } else {
                     olderThanOneMinute = false;

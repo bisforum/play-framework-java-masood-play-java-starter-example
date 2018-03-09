@@ -1,12 +1,9 @@
 import com.google.inject.AbstractModule;
-
-
-import com.google.inject.TypeLiteral;
-import controllers.AsyncController;
-import play.Configuration;
+import controllers.OrderController;
 import services.InMemoryOrderService;
 import services.OrderService;
 import services.Transaction;
+
 
 
 import java.util.concurrent.BlockingQueue;
@@ -31,7 +28,7 @@ public class Module extends AbstractModule {
 
         bind(new TypeLiteral<BlockingQueue<Transaction>>(){}).toInstance(new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo));
         bind(OrderService.class).to(InMemoryOrderService.class);
-        bind(AsyncController.class);
+        bind(OrderController.class);
 
     }
 
