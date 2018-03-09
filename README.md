@@ -18,7 +18,7 @@ curl -X POST -H 'Content-Type: application/json' -i http://localhost:9000/add --
 ```
 
 Example of Load Test with Apache Benchmark 
-(install apache benchmark on your machine and the following command in scripts/performance-test/post_loc.txt)
+(install apache benchmark on your machine and run the following command in scripts/performance-test/post_loc.txt)
 ```
 ab -p post_loc.txt -T application/json -c 10 -n 200 http://localhost:9000/add
 ```
