@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.concurrent.CompletionStage;
 
 import scala.concurrent.ExecutionContextExecutor;
+import scala.reflect.internal.AnnotationInfos;
 import services.Order;
 import services.Transaction;
 
@@ -33,11 +34,16 @@ public class AsyncController extends Controller {
 
     }
 
-//    }
+    //    }
     public CompletionStage<Result> addOrder() {
 
         JsonNode json = request().body().asJson();
-        int saleAmount = Integer.valueOf(json.get("sales_amount").asText());
+        JsonNode amountValue = json.get("sales_amount");
+        if (amountValue.isNull()) {
+//            todo: better error type should be returned both for field type and value type
+            throw new IllegalArgumentException("\"sales_amount\" field is not found in the JSON body ");
+        }
+        int saleAmount = Integer.valueOf(amountValue.asText());
         Transaction transaction = new Transaction(new Date(), saleAmount);
 
         return orderService.addOrder(transaction).thenApply(result -> status(202, "Accepted"));

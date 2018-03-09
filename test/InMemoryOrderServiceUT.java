@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 public class InMemoryOrderServiceUT {
 
-    @Mock
+
     PriorityBlockingQueue<Transaction> orderQueue;
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
