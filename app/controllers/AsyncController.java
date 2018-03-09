@@ -35,7 +35,7 @@ public class AsyncController extends Controller {
 
     //    }
     public CompletionStage<Result> addOrder() {
-        Logger.debug("Entered addOrder method; remoteAddress=" + request().remoteAddress());
+        Logger.debug("Entering " + this.getClass().getSimpleName() + ".addOrder method; remoteAddress=" + request().remoteAddress() + " ; Content-type= " + request().contentType());
         JsonNode json = request().body().asJson();
         JsonNode amountValue = json.get("sales_amount");
         if (amountValue == null) {
@@ -52,7 +52,7 @@ public class AsyncController extends Controller {
 
 
     public CompletionStage<Result> getOrderStatistics() {
-        Logger.debug("Entered getOrderStatistics method; remoteAddress=" + request().remoteAddress());
+        Logger.debug("Entering " + this.getClass().getSimpleName() + ".getOrderStatistics method; remoteAddress=" + request().remoteAddress() + " ; Content-type= " + request().contentType());
 
         return orderService.getStatistics(new DateTime()).thenApply(stat -> {
             ObjectNode result = Json.newObject();

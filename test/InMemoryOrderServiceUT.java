@@ -19,8 +19,8 @@ import static services.OrderService.queueCapacity;
 public class InMemoryOrderServiceUT {
 
 
-    PriorityBlockingQueue<Transaction> mockedOrderQueue = new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo);;
-    ;
+    PriorityBlockingQueue<Transaction> mockedOrderQueue = new PriorityBlockingQueue<>(queueCapacity, Transaction::compareTo);
+
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 

@@ -40,6 +40,8 @@ public class InMemoryOrderService implements OrderService {
 
     @Override
     public CompletionStage<Statistics> getStatistics(DateTime requestTime) {
+        Logger.debug("Entered " + this.getClass().getSimpleName() + ".getStatistics method; remoteAddress=");
+
         return dequeueOldOrders(requestTime).thenApply(updatedQueue ->
         {
             if (orderQueue.isEmpty()) {
@@ -56,7 +58,7 @@ public class InMemoryOrderService implements OrderService {
 
         return CompletableFuture.runAsync(() -> {
             boolean olderThanOneMinute = true;
-
+            Logger.debug("queue size is: " + orderQueue.size());
             while (olderThanOneMinute && !orderQueue.isEmpty()) {
 
                 DateTime timeWindowStart = (requestTime).minusMillis((timeWindow));
