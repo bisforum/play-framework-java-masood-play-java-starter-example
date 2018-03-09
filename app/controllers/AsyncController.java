@@ -6,11 +6,11 @@ import javax.inject.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.joda.time.DateTime;
 import play.*;
 import play.libs.Json;
 import play.mvc.*;
 
-import java.util.Date;
 import java.util.concurrent.CompletionStage;
 
 import services.OrderService;
@@ -42,7 +42,7 @@ public class AsyncController extends Controller {
             throw new IllegalArgumentException("\"sales_amount\" field is not found in the JSON body ");
         }
         int saleAmount = Integer.valueOf(amountValue.asText());
-        Transaction transaction = new Transaction(new Date(), saleAmount);
+        Transaction transaction = new Transaction(new DateTime(), saleAmount);
 
         return orderService.addOrder(transaction).thenApply(result -> status(202, "Accepted"));
     }
@@ -50,7 +50,7 @@ public class AsyncController extends Controller {
 
     public CompletionStage<Result> getOrderStatistics() {
 
-        return orderService.getStatistics(new Date()).thenApply(stat -> {
+        return orderService.getStatistics(new DateTime()).thenApply(stat -> {
             ObjectNode result = Json.newObject();
             result.put("total_sales_amount", stat.getTotalSalesAmount());
             result.put("average_amount_per_order:", stat.getAverageAmountPerOrder());

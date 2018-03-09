@@ -1,5 +1,6 @@
 package services;
 
+import org.joda.time.DateTime;
 import play.Configuration;
 
 import javax.inject.Singleton;
@@ -16,7 +17,7 @@ public interface OrderService {
 
     CompletionStage<Void> addOrder(Transaction date);
 
-    CompletionStage<Statistics> getStatistics(Date requestTime);
+    CompletionStage<Statistics> getStatistics(DateTime requestTime);
 
 
 

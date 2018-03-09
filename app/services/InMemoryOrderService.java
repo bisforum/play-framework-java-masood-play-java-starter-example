@@ -37,7 +37,7 @@ public class InMemoryOrderService implements OrderService {
     }
 
     @Override
-    public CompletionStage<Statistics> getStatistics(Date requestTime) {
+    public CompletionStage<Statistics> getStatistics(DateTime requestTime) {
         return dequeueOldOrders(requestTime).thenApply(updatedQueue ->
         {
             if (orderQueue.isEmpty()) {
@@ -50,16 +50,17 @@ public class InMemoryOrderService implements OrderService {
     }
 
 
-    public CompletableFuture<Void> dequeueOldOrders(Date requestTime) {
+    public CompletableFuture<Void> dequeueOldOrders(DateTime requestTime) {
 
         return CompletableFuture.runAsync(() -> {
             boolean olderThanOneMinute = true;
 
             while (olderThanOneMinute && !orderQueue.isEmpty()) {
-                DateTime timeWindowStart = new DateTime(requestTime).minusMillis((timeWindow));
-                DateTime transactionTime = new DateTime(orderQueue.peek().timeStamp);
 
-                if (transactionTime.isBefore(timeWindowStart) && !orderQueue.isEmpty()) {
+                DateTime timeWindowStart = (requestTime).minusMillis((timeWindow));
+                DateTime transactionTime = (orderQueue.peek().timeStamp);
+
+                if (transactionTime.isBefore(timeWindowStart)) {
                     atomicSum.set(atomicSum.get() - orderQueue.poll().amount);
                 } else {
                     olderThanOneMinute = false;

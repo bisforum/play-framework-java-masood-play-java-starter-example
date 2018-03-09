@@ -20,15 +20,10 @@ public class Module extends AbstractModule {
 
     @Override
     public void configure() {
-        // Use the system clock as the default implementation of Clock
-//        bind(Clock.class).toInstance(Clock.systemDefaultZone());
-        // Ask Guice to create an instance of ApplicationTimer when the
-        // application starts.
-//        bind(ApplicationTimer.class).asEagerSingleton();
-        // Set InMemoryOrderService as the implementation for Order.
+
         bind(OrderService.class).to(InMemoryOrderService.class);
         bind(AsyncController.class);
-//        bind(InMemoryOrderService.class);
+
     }
 
 }
