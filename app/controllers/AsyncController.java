@@ -10,6 +10,7 @@ import org.joda.time.DateTime;
 import play.*;
 import play.libs.Json;
 import play.mvc.*;
+import play.Logger;
 
 import java.util.concurrent.CompletionStage;
 
@@ -34,10 +35,12 @@ public class AsyncController extends Controller {
 
     //    }
     public CompletionStage<Result> addOrder() {
-
+        Logger.debug("Entered addOrder method; remoteAddress=" + request().remoteAddress());
         JsonNode json = request().body().asJson();
         JsonNode amountValue = json.get("sales_amount");
         if (amountValue == null) {
+            Logger.debug("sales_amount field is not found in the request body: " + json.asText());
+
 //            todo: Good client error type should be returned both for field type and value type
             throw new IllegalArgumentException("\"sales_amount\" field is not found in the JSON body ");
         }
@@ -49,6 +52,7 @@ public class AsyncController extends Controller {
 
 
     public CompletionStage<Result> getOrderStatistics() {
+        Logger.debug("Entered getOrderStatistics method; remoteAddress=" + request().remoteAddress());
 
         return orderService.getStatistics(new DateTime()).thenApply(stat -> {
             ObjectNode result = Json.newObject();

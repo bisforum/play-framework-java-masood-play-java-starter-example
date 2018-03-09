@@ -3,6 +3,7 @@ package services;
 import com.google.inject.Module;
 import org.joda.time.DateTime;
 import play.Configuration;
+import play.Logger;
 
 import java.util.Date;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class InMemoryOrderService implements OrderService {
 
     @Override
     public CompletionStage<Void> addOrder(Transaction transaction) {
+        Logger.debug("The following transaction is going to be added to the queue (amount , timestampt): " + transaction.amount + " , " + transaction.timeStamp);
 
         return CompletableFuture.runAsync(() -> {
             orderQueue.add(transaction);
@@ -61,6 +63,7 @@ public class InMemoryOrderService implements OrderService {
                 DateTime transactionTime = (orderQueue.peek().timeStamp);
 
                 if (transactionTime.isBefore(timeWindowStart)) {
+                    Logger.debug("The following transaction is about tho be removed form the queue" + orderQueue.peek());
                     atomicSum.set(atomicSum.get() - orderQueue.poll().amount);
                 } else {
                     olderThanOneMinute = false;
