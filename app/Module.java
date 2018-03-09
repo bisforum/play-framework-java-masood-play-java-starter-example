@@ -1,7 +1,5 @@
 import com.google.inject.AbstractModule;
-
-
-import controllers.AsyncController;
+import controllers.OrderController;
 import services.InMemoryOrderService;
 import services.OrderService;
 
@@ -22,7 +20,7 @@ public class Module extends AbstractModule {
     public void configure() {
 
         bind(OrderService.class).to(InMemoryOrderService.class);
-        bind(AsyncController.class);
+        bind(OrderController.class);
 
     }
 

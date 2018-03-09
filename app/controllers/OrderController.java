@@ -1,13 +1,9 @@
 package controllers;
 
-import akka.actor.ActorSystem;
-
 import javax.inject.*;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.joda.time.DateTime;
-import play.*;
 import play.libs.Json;
 import play.mvc.*;
 import play.Logger;
@@ -19,14 +15,14 @@ import services.Transaction;
 
 
 @Singleton
-public class AsyncController extends Controller {
+public class OrderController extends Controller {
 
 
     private final OrderService orderService;
 
 
     @Inject
-    public AsyncController(OrderService order) {
+    public OrderController(OrderService order) {
 
         this.orderService = order;
 

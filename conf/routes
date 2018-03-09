@@ -2,5 +2,5 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET         /statistics          controllers.AsyncController.getOrderStatistics
-POST        /add                 controllers.AsyncController.addOrder()
+GET         /statistics          controllers.OrderController.getOrderStatistics
+POST        /add                 controllers.OrderController.addOrder()
