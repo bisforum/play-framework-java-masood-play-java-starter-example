@@ -1,3 +1,4 @@
+import org.joda.time.DateTime;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -7,7 +8,6 @@ import services.InMemoryOrderService;
 import services.OrderService;
 import services.Transaction;
 
-import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -26,11 +26,11 @@ public class InMemoryOrderServiceUT {
     @Test
     public void testDequeue() throws ExecutionException, InterruptedException {
 
-        orderQueue.add(new Transaction(new Date(), 3));
+        orderQueue.add(new Transaction(new DateTime(), 3));
 
         when(OrderService.orderQueue).thenReturn(orderQueue);
         InMemoryOrderService service = new InMemoryOrderService();
-        CompletableFuture<Void> futureResult = service.dequeueOldOrders(new Date());
+        CompletableFuture<Void> futureResult = service.dequeueOldOrders(new DateTime());
         futureResult.get();
         assertEquals((orderQueue.size()), 1);
 
