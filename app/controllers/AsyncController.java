@@ -39,7 +39,7 @@ public class AsyncController extends Controller {
 
         JsonNode json = request().body().asJson();
         JsonNode amountValue = json.get("sales_amount");
-        if (amountValue.isNull()) {
+        if (amountValue == null) {
 //            todo: better error type should be returned both for field type and value type
             throw new IllegalArgumentException("\"sales_amount\" field is not found in the JSON body ");
         }

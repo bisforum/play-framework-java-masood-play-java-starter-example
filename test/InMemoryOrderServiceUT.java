@@ -32,7 +32,7 @@ public class InMemoryOrderServiceUT {
         InMemoryOrderService service = new InMemoryOrderService();
         CompletableFuture<Void> futureResult = service.dequeueOldOrders(new Date());
         futureResult.get();
-        assertEquals((orderQueue.size()), 0);
+        assertEquals((orderQueue.size()), 1);
 
 
     }
