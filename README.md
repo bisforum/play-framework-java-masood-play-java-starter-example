@@ -21,10 +21,3 @@ and
 ```
 curl -d "sales_amount=2" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:9000/sales -i
 ```
-
-  ## To Do 
-  (Due to time limitation I could not complete the following items, but thought about them and have solutions):
-  - "timeWindow" should be read from configuration files. That helps testability design.
-  - Queue can get big (unnecessariliy) and full. Currently considering the requirements, it is limited to 300K. A good dequeue policy can be helpful e.g. deque the queue periodically.
-  - Some concurrent test to be added. Also Performance Testing can be done in a separate project.
-  - Better Error naming and codes.
